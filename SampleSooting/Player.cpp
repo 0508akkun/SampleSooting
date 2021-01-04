@@ -1,7 +1,11 @@
 #include "Player.h"
 
 Player::Player() 
-    :speed(8),playerPos(Vec2(375, 500)),playerSize(Vec2(50, 50)),playerShot(Array<Shot>()) //Playerクラスの変数の初期化
+    :speed(8),
+     playerRect(Rect(playerPos.x, playerPos.y, playerSize.x, playerSize.y)),
+     playerPos(Vec2(375, 500)),playerSize(Vec2(50, 50)),
+     playerShot(Array<Shot>()),
+     score(0) //Playerクラスの変数の初期化
 {
 }
 
@@ -23,16 +27,35 @@ void Player::move() {   //プレイヤーの移動
 }
 
 void Player::show() {   //  プレイヤーの表示
-    Rect(playerPos.x, playerPos.y, playerSize.x, playerSize.y).draw(Palette::Blue);   //現在のx,y座標、プレイヤーの幅,高さ
-    for (auto& shotPos : playerShot) {
-        shotPos.shotMove();
-        shotPos.shotShow();
+    playerRect = Rect(playerPos.x, playerPos.y, playerSize.x, playerSize.y);    //現在のx,y座標、プレイヤーの幅,高さ
+    playerRect.draw(Palette::Blue);   
+    for (auto& shot : playerShot) {  //生成されている弾全ての
+        shot.shotShow(); //弾の表示
     }
 }
 
-void Player::shot() {
-    
-    if (KeySpace.down()) {
-        playerShot.emplace_back(playerPos.x, playerPos.y);
+void Player::shot() {   //弾の発射処理
+    if (KeySpace.down()) {  //Spaceを押すと
+        playerShot << Shot(playerPos.x + playerSize.x/2, playerPos.y,-1); //弾を生成
     }
+    for (auto& shot : playerShot) {  //生成されている弾全ての
+        shot.shotMove(); //弾の動きを作成
+    }
+}
+
+void Player::checkIntersect(Rect rect) {    //プレイヤーの弾が当たっているかどうか
+    for (auto it = playerShot.begin(); it != playerShot.end();){    //生成されている弾全てのどれかが
+        if (it->checkIntersectsShot(rect)) {    //敵に当たれば
+            it = playerShot.erase(it);  //当たった弾を削除してイテレータを進める
+            score += 100;   //スコアを加算
+        }
+        else {
+            ++it;   //イテレータを進める
+        }
+    }
+}
+
+Rect Player::getPlayerRect()    //Playerの実体を取得
+{
+    return playerRect;
 }
