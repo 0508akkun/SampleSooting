@@ -59,3 +59,7 @@ Rect Player::getPlayerRect()    //Player‚ÌŽÀ‘Ì‚ðŽæ“¾
 {
     return playerRect;
 }
+
+int Player::getScore() {
+    return score;
+}

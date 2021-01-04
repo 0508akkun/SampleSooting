@@ -36,12 +36,13 @@ void Enemy::shot() {   //弾の発射処理
     }
 }
 
-void Enemy::checkIntersect(Rect rect) { //敵の弾が当たっているかどうか
+bool Enemy::checkIntersect(Rect rect) { //敵の弾が当たっているかどうか
     for (auto& shot : enemyShot) {  //生成されている弾全てのどれかが
         if (shot.checkIntersectsShot(rect)) {   //プレイヤーに当たれば
-            //ゲームオーバー処理
+            return true;
         }
     }
+    return false;
 }
 
 Rect Enemy::getEnemyRect()  //敵の実体を取得
