@@ -15,7 +15,7 @@ public:
 	void move();	//プレイヤーの移動
 	void show();	//プレイヤーの表示
 	void shot();	//プレイヤーが弾を打つ処理
-	void checkIntersect(Rect rect);	//敵の弾が当たっているかどうか
+	bool checkIntersect(Rect rect);	//敵の弾が当たっているかどうか
 	Rect getEnemyRect();	//敵の実体を取得
 };
 
