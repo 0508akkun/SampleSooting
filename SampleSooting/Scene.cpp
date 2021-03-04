@@ -33,7 +33,7 @@ void Game::update()
 	player.show();	//プレイヤーの表示
 	player.checkIntersect(enemy.getEnemyRect());
 	enemy.move();	//敵の移動
-	enemy.shot();	//敵の弾を発射
+	enemy.shot(player.getPlayerRect(), enemy.getEnemySize());	//敵の弾を発射
 	enemy.show();	//敵の表示
 	getData().score = player.getScore();
 	if (enemy.checkIntersect(player.getPlayerRect())) {
@@ -54,10 +54,10 @@ Ending::Ending(const InitData& init)
 
 void Ending::update()
 {
-	highScore = getData().highScore;
-	if (getData().score > highScore) {
-		highScore = getData().score;
-		getData().highScore = highScore;
+	highScore = getData().highScore;	//highScoreを取得
+	if (getData().score > highScore) {	//scoreの方が高ければ
+		highScore = getData().score;	//highScoreを更新
+		getData().highScore = highScore;	
 	}
 	if (KeySpace.down())	//Spaceを押したら
 	{

@@ -11,6 +11,7 @@ class Shot
 public:
 	Shot(double sx, double sy, int64 dire);	//コンストラクタを定義
 	void shotMove();	//弾の移動
+	void shotTraceMove(Rect rect, Vec2 size);	//追尾弾の移動
 	void shotShow();	//弾の表示
 	bool checkIntersectsShot(Rect rect);	//弾が当たっているかどうか
 };

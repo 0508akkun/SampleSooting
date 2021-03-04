@@ -17,6 +17,6 @@ public:
 	void shot();	//プレイヤーが弾を打つ処理
 	void checkIntersect(Rect rect);	//プレイヤーの弾が当たっているかどうか
 	Rect getPlayerRect();	//プレイヤーの実体を取得
-	int getScore();
+	int getScore();	//スコアの取得
 };
 

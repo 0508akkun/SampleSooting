@@ -16,6 +16,11 @@ void Shot::shotMove()	//’e‚Ì“®‚«
 	shotPos.y += shotSpeed;	//’e‚ðshotSpeed‚¾‚¯ã‚ÉˆÚ“®‚³‚¹‚é
 }
 
+void Shot::shotTraceMove(Rect rect, Vec2 size) {
+	shotPos.y += shotSpeed;
+	shotPos.x -= (shotPos.x - (rect.x + size.x / 2)) * 0.03;
+}
+
 void Shot::shotShow()	//’e‚Ì•\Ž¦
 {
 	shotRect = Rect(shotPos.x, shotPos.y, shotSize.x, shotSize.y);	//’e‚Ìx,yÀ•WA’e‚Ì•,‚‚³
